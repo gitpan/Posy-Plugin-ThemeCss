@@ -1,17 +1,17 @@
 --- #YAML:1.0
 name: Posy-Plugin-ThemeCss
-version: 0.40
+version: 0.41
 author:
   - Kathryn Andersen
-abstract: Posy plugin for Cascading Style Sheet themes
+abstract: Posy plugin for Cascading Style Sheet themes.
 license: perl
 requires:
-  Posy: 0.4
-  Posy::Plugin::YamlConfig: 0.4
+  Posy: 0.9
+  Posy::Plugin::YamlConfig: 0.41
 build_requires:
   Test::More: 0
 provides:
   Posy::Plugin::ThemeCss:
     file: lib/Posy/Plugin/ThemeCss.pm
-    version: 0.40
+    version: 0.41
 generated_by: Module::Build version 0.2607
