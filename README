@@ -1,0 +1,125 @@
+
+==== NAME ====
+
+Posy::Plugin::ThemeCss - Posy plugin for Cascading Style Sheet themes
+
+
+==== VERSION ====
+
+This describes version ``0.40'' of Posy::Plugin::ThemeCss.
+
+
+==== DESCRIPTION ====
+
+This plugin allows a visitor to choose which CSS layout they would like to
+use when browsing your site, by checking a CGI parameter.
+
+There are two variables filled in by this plugin that can be used within
+your flavour files. The $flow_theme_css_display variable contains the
+stylesheet link metatag for the currently selected CSS file. This variable
+must be inserted into your head flavour file.
+
+The second variable is $flow_theme_css_links which presents a list of all
+the different CSS themes available on your site.
+
+If you don't want to use the $flow_theme_css_links list for accessing your
+various CSS themes, you can simply tack on the following CGI string to a
+URL:
+
+``?theme_css=theme_name'': where 'theme_name' is the name of the CSS theme.
+
+
+==   Activation   ==
+
+This plugin needs to be added to both the plugins list and the actions list.
+It doesn't really matter where it is in the plugins list, just so long as
+you also have the Posy::Plugin::YamlConfig plugin as well.
+
+In the actions list, it needs to go somewhere after ``head_template'' and
+before ``head_render'', since the config needs to have been read, and this
+needs to set values before the head is rendered.
+
+
+==   Configuration   ==
+
+This expects configuration settings in the $self->{config} hash, which, in
+the default Posy setup, can be defined in the main "config" file in the data
+directory.
+
+This requires the Posy::Plugin::YamlConfig plugin (or equivalent), because
+the configuration variables for this plugin are not simple string values; it
+expects most of the config values to be in a hash at
+$self->{config}->{theme_css}
+
+There are two main config settings;
+
+``theme_css_default''
+The default CSS selection when none is specified. This is a separate value
+because one might want to use a different default theme in a different part
+of the site, so this enables one to just set this value without having to
+set the others again.
+
+``theme_css''
+A hash containing the rest of the settings.
+
+``themes''
+This list defined the order of the labels that are shown in the list of CSS
+themes set in $flow_theme_css_links Note that for every entry in this list,
+there must be a corresponding entry in the files hash.
+
+``files''
+These are the (CSS) files associated with the CSS selections.
+
+``param''
+The name of the parameter to check for selecting CSS themes. (default:
+theme_css)
+
+Example config file:
+
+        ---
+        theme_css_default: Smooth
+        theme_css:
+          themes:
+            - Smooth
+            - Smooth2
+            - Midnight
+            - Blue2
+            - Dark
+            - Gold
+          files:
+            Smooth: '/styles/theme_default.css'
+            Smooth2: '/styles/theme_alt.css'
+            Midnight: '/styles/theme_midblu.css'
+            Blue2: '/styles/theme_blue2.css'
+            Dark: '/styles/theme_dark.css'
+            Gold: '/styles/theme_gold.css'
+          param: theme_css
+
+
+==== REQUIRES ====
+
+    Posy
+    Posy::Core
+    Posy::Plugin::TextTemplate
+    Posy::Plugin::YamlConfig
+
+    Test::More
+
+
+==== AUTHOR ====
+
+    Kathryn Andersen (RUBYKAT)
+    perlkat AT katspace dot com
+    http://www.katspace.com
+
+
+==== COPYRIGHT AND LICENCE ====
+
+Copyright (c) 2004-2005 by Kathryn Andersen
+
+Based in part on the 'css' blosxom plugin by Eric Davis <edavis <at>
+foobargeek <dot> com> http://www.foobargeek.com
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
